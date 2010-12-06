@@ -1,0 +1,70 @@
+/* This CSS should be used as an outline for formatting Pagination to work with various Sites.  This format should be adjusted as necessary to allow for color and graphic changes along with formatting content within the paginated list.  This is just a general outline meant to be customized as necessary. Suggestions on what needs to be changed is provided within this CSS file. */
+
+/* To change the colors of the pagination numbering change all locations of "color: #339900" to the color that matches links within the site. The hover color is currently set to "color: #5572d2", this should also be adjusted. */
+
+.pagination {
+	float: left;
+	margin: 3px 0 0;
+}
+
+.pagination li {
+	clear: none;
+	color: 	#339900;
+	float: left;
+	height: 1.5em;
+	overflow: hidden;
+	padding: 0 4px;
+	font-size: 100%;
+	line-height: 1.5em;
+}
+
+.pagination a {
+	color: 	#339900;
+	padding: 0 3px 0 4px;
+}
+
+.pagination .active a, .pagination .active a:hover {
+	font-weight: bold;
+}
+
+.pagination a:hover {
+	color: 	#5572d2;
+}
+
+.pagination .first, .pagination .last, .pagination .next, .pagination .previous {
+	background: none;
+}
+
+.pagination .first a, .pagination .previous a, .pagination .next a, .pagination .last a, .pagination .first span, .pagination .previous span, .pagination .next span, .pagination .last span {
+	background: none;
+	display: block;
+	margin: 2px 0 0;
+	padding: 0;
+	text-indent: -999em;
+	background-position: 0 0px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+}
+
+/* This is where images for the first, previous, next, and last buttons are set.  If these images are changed, the height, width, and line-hieght should be adjusted in the above CSS code to match the new image dimensions. The height and line-height should be the images height and the width should be the images width. It is recommended that all images used have consistant dimensions. */
+
+.pagination .first a {background: url(arrows/first-green.gif) no-repeat;}
+.pagination .first a:hover {background: url(arrows/first-blue.gif) no-repeat;}
+
+.pagination .previous a {background: url(arrows/previous-green.gif) no-repeat;}
+.pagination .previous a:hover {background: url(arrows/previous-blue.gif) no-repeat;}
+
+.pagination .next a {background: url(arrows/next-green.gif) no-repeat;}
+.pagination .next a:hover {background: url(arrows/next-blue.gif) no-repeat;}
+
+.pagination .last a {background: url(arrows/last-green.gif) no-repeat;}
+.pagination .last a:hover {background: url(arrows/last-blue.gif) no-repeat;}
+
+/* Formatting actual paginated list */
+ul.itemList li{
+		background: none;
+		font-size: 100%;
+		clear: both;
+		padding: 0 0 18px;
+}
