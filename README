@@ -1,0 +1,15 @@
+Pagination
+ 
+pagination.js
+1. Modify the number of items to be displayed per pagination section.
+2. Specifiy the HTML path to the unordered list (ul) to be paginated.
+
+pagination.css
+1. Modify the Buttons/Arrows, size, and colors to be used for paginated navigation.
+2. Modify styles for paginated list content.
+
+pagination.html
+1. Sample content of how files should be included, how list should be setup, and how to select where to include paginated navigation.
+
+arrows folder
+1. Contains images for arrow buttons.
