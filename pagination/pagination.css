@@ -3,8 +3,8 @@
 /* To change the colors of the pagination numbering change all locations of "color: #339900" to the color that matches links within the site. The hover color is currently set to "color: #5572d2", this should also be adjusted. */
 
 .pagination {
-	float: left;
 	margin: 3px 0 0;
+    overflow: auto;
 }
 
 .pagination li {
