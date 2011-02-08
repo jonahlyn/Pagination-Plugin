@@ -6,7 +6,7 @@ It is important the list to be paginated have the class itemList or this script 
 */
 
 var itemsPerPage = 7;
-var _itemListPath = 'ul.itemList';
+var _itemListPath = 'ul.items';
 var _dataSet;
 var _itemCount = 0;
 var _currentPageNumber = 1;
@@ -28,15 +28,15 @@ Array.prototype.contains = function(obj) {
 function initList() {
     _dataSet = $('<ul />');
 
-    $('.itemList').children('li').appendTo(_dataSet);
+    $(_itemListPath).children('li').appendTo(_dataSet);
 
     _itemCount = _dataSet.children('li').length;
 
     _dataSet.children('li').each(function(i, obj) {
-            $('.itemList').append($(obj).clone(true));
+            $(_itemListPath).append($(obj).clone(true));
     });
 
-    loadPagination(1, $('.itemList'), $('.pagination'));
+    loadPagination(1, $(_itemListPath), $('.pagination'));
 
 }
 
@@ -118,7 +118,7 @@ function pager(num) {
     //reset the page number and load pagination
     _currentPageNumber = num;
 
-    loadPagination(num, $('.itemList'), $('.pagination'));
+    loadPagination(num, $(_itemListPath), $('.pagination'));
 }
 
 
