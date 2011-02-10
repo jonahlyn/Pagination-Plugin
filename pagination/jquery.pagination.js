@@ -33,7 +33,7 @@
 			nav = buildNavigation(total_pages);
 			$('li a',nav).click(function(e){
 				e.preventDefault();
-				displayPage(e.target.innerText);
+				displayPage(e.target.textContent);
 			});			
 			page_elem.before(nav).after(nav.clone(true));
 			emphasizeCurrentPage();
