@@ -1,8 +1,12 @@
 Pagination
  
-pagination.js
-1. Modify the number of items to be displayed per pagination section.
-2. Specifiy the HTML path to the unordered list (ul) to be paginated.
+jquery.pagination.js
+1. Accepts an options object to configure items per page (itemsPerPage) and the class name used on the navigation (navigationClass).
+
+{
+itemsPerPage: 7,
+navigationClass: 'pagination'
+}
 
 pagination.css
 1. Modify the Buttons/Arrows, size, and colors to be used for paginated navigation.
