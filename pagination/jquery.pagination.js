@@ -60,7 +60,7 @@
 					
 					for(;i<=total_pages;i++){
 						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
-							if(i > 1 && i == start_range){
+							if(i > 2 && i == start_range){
 								nav.append('<li>...</li>');
 							}							
 							nav.append('<li><a href="#">'+i+'</a></li>');
