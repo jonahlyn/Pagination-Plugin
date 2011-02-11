@@ -23,6 +23,7 @@
 				
 				items.hide();
 				items.slice(low,high).show();
+				updateNavigation(current_page);
 				emphasizeCurrentPage(current_page);
 			}
 			
@@ -33,35 +34,75 @@
 						.css({'font-weight':'normal'})
 						.filter(':eq('+nav_index+')').css({'font-weight':'bold'});					
 				});				
+			}			
+			
+			function buildNavigation(current_page){
+				var nav = $('<ul class="pagination"></ul>'), i = 1, start_range, end_range,
+					current_page = parseInt(current_page) || 1;
+				
+				if(total_pages > opts.pageLimit){
+					// Show abbreviated page navigation
+					// TODO: Figure out how to use opts.midRange here
+					start_range = current_page - 2;
+					end_range = current_page + 2;
+					
+					if(start_range <= 0){
+						start_range = current_page;
+					}
+					if(end_range > total_pages){
+						end_range = total_pages;
+					}
+					
+					console.log('current page: ' + current_page);
+					console.log('total pages: ' + total_pages);
+					console.log('start range: ' + start_range);
+					console.log('end range: ' + end_range);
+					
+					for(;i<=total_pages;i++){
+						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
+							if(i > 1 && i == start_range){
+								nav.append('<li>...</li>');
+							}							
+							nav.append('<li><a href="#">'+i+'</a></li>');
+							if(i < total_pages && i == end_range){
+								nav.append('<li>...</li>');
+							}
+						}
+					}
+				} else {
+					// Display links for all pages
+					for(;i<=total_pages;i++){
+						nav.append('<li><a href="#">'+i+'</a></li>');
+					}					
+				}
+				
+				return nav;
 			}
 			
+			function updateNavigation(current_page){
+				if(nav){
+					nav.remove();
+					nav2.remove();
+				}
+				nav = buildNavigation(current_page);
+				$('li a',nav).click(function(e){
+					e.preventDefault();
+					displayPage(e.target.textContent);
+				});
+				nav2 = nav.clone(true);
+				page_elem.before(nav).after(nav2);
+			}			
+			
 			displayPage();
-			
-			nav = buildNavigation(total_pages);
-			$('li a',nav).click(function(e){
-				e.preventDefault();
-				displayPage(e.target.textContent);
-			});
-			nav2 = nav.clone(true);
-			page_elem.before(nav).after(nav2);
-			
+			updateNavigation();
 			emphasizeCurrentPage();
 		});
 	};
 	
-	function buildNavigation(total_pages){
-		var nav = $('<ul class="pagination"></ul>'), i = 1;
-		
-		for(;i<=total_pages;i++){
-			nav.append('<li><a href="#">'+i+'</a></li>');
-		}
-		
-		return nav;
-	}
-	
 	$.fn.pagination.defaults = {
 			itemsPerPage: 7,
-			navigationClass: 'pagination'
+			pageLimit: 10,
+			midRange: 5
 	};
 	
 }(jQuery));
