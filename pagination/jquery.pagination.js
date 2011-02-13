@@ -27,16 +27,52 @@
 			}			
 			
 			function buildNavigation(current_page){
-				var nav = $('<ul class="pagination"></ul>'), i = 1, start_range, end_range,
+				var nav = $('<ul class="pagination"></ul>'), 
 					current_page = parseInt(current_page) || 1,
-					item, link;
+					next_page = current_page + 1,
+					previous_page = current_page - 1, 
+					start_range, end_range,
+					item, link,
+					i = 1;
 				
 				function createClickHandler(i){
-					var i = i;
+					var i = i || 1;
 					return function(e) {
 						e.preventDefault();
 						displayPage(i);
 			        }
+				}
+				
+				function appendLink(params){
+					params = params || {};
+					item = $('<li>');
+					
+					if(params.pageNum && params.htmlText){
+						link = $('<a>')
+							.attr('href','#')
+							.html(params.htmlText)
+							.click(createClickHandler(params.pageNum));
+						item.append(link);
+					}
+					if (params.clsName) {
+						item.addClass(params.clsName);
+					}
+					
+					nav.append(item);
+				}
+							
+				// First Page Link
+				if(current_page !== 1){
+					appendLink({pageNum: 1, htmlText: 'First', clsName: 'first'});
+				}else{
+					appendLink({clsName: 'first'});
+				}
+				
+				// Previous Page Link
+				if(current_page > 1){
+					appendLink({pageNum: previous_page, htmlText: 'Previous', clsName: 'previous'});
+				}else{
+					appendLink({clsName: 'previous'});
 				}
 				
 				if(total_pages > opts.pageLimit){
@@ -54,23 +90,17 @@
 					
 					for(;i<=total_pages;i++){
 						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
-							item = $('<li>');
-							link = $('<a>');
-							link.attr('href','#')
-								.html(i)
-								.click(createClickHandler(i));
-							
-							// Highlight the current page
-							if(i == current_page){
-								link.addClass('active');
-							}
-							
-							item.append(link);
 							
 							if(i > 2 && i == start_range){
 								nav.append('<li>...</li>');
-							}							
-							nav.append(item);
+							}
+							
+							appendLink({
+								pageNum: i, 
+								htmlText: i, 
+								clsName: (i == current_page)?'active':null
+								});
+							
 							if(i < total_pages && i == end_range){
 								nav.append('<li>...</li>');
 							}
@@ -79,21 +109,28 @@
 				} else {
 					// Display navigation links for all pages
 					for(;i<=total_pages;i++){
-						item = $('<li>');
-						link = $('<a>');
-						link.attr('href','#')
-							.html(i)
-							.click(createClickHandler(i));
-						
-						// Highlight the current page
-						if(i == current_page){
-							link.addClass('active');
-						}
-						
-						item.append(link);
-						nav.append(item);
+						appendLink({
+							pageNum: i, 
+							htmlText: i, 
+							clsName: (i == current_page)?'active':null
+							});
 					}
 				}
+				
+				// Next Page Link
+				if(current_page < total_pages){
+					appendLink({pageNum: next_page, htmlText: 'Next', clsName: 'next'});
+				}else {
+					appendLink({clsName: 'next'});
+				}
+				
+				// Last Page Link			
+				if(current_page !== total_pages){
+					appendLink({pageNum: total_pages, htmlText: 'Last', clsName: 'last'});
+				}else {
+					appendLink({clsName: 'last'});
+				}				
+				
 				
 				return nav;
 			}

@@ -23,11 +23,7 @@
 	padding: 0 3px 0 4px;
 }
 
-.pagination .active a, .pagination .active a:hover {
-	font-weight: bold;
-}
-
-.pagination a.active {
+.pagination .active {
     border: 1px solid #339900;
     font-weight: bold;
 }
@@ -36,16 +32,25 @@
 	color: 	#5572d2;
 }
 
-.pagination .first, .pagination .last, .pagination .next, .pagination .previous {
-	background: none;
+
+.pagination .previous, 
+.pagination .next,
+.pagination .first,
+.pagination .last {
+    background: none;
+    width: 16px;
+    height: 16px;
 }
 
-.pagination .first a, .pagination .previous a, .pagination .next a, .pagination .last a, .pagination .first span, .pagination .previous span, .pagination .next span, .pagination .last span {
+.pagination .previous a, 
+.pagination .next a,
+.pagination .first a,
+.pagination .last a{
 	background: none;
 	display: block;
 	margin: 2px 0 0;
 	padding: 0;
-	text-indent: -999em;
+    text-indent: -999em;
 	background-position: 0 0px;
 	width: 16px;
 	height: 16px;
@@ -60,7 +65,7 @@
 .pagination .previous a {background: url(arrows/previous-green.gif) no-repeat;}
 .pagination .previous a:hover {background: url(arrows/previous-blue.gif) no-repeat;}
 
-.pagination .next a {background: url(arrows/next-green.gif) no-repeat;}
+.pagination .next a{background: url(arrows/next-green.gif) no-repeat;}
 .pagination .next a:hover {background: url(arrows/next-blue.gif) no-repeat;}
 
 .pagination .last a {background: url(arrows/last-green.gif) no-repeat;}
