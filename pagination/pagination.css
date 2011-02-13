@@ -27,6 +27,11 @@
 	font-weight: bold;
 }
 
+.pagination a.active {
+    border: 1px solid #339900;
+    font-weight: bold;
+}
+
 .pagination a:hover {
 	color: 	#5572d2;
 }

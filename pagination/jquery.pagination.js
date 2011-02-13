@@ -54,15 +54,18 @@
 					
 					for(;i<=total_pages;i++){
 						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
-							item = document.createElement('li');
-							link = document.createElement('a');
-							link.setAttribute('href', '#');
-							link.innerHTML = i;
-							link.addEventListener('click', createClickHandler(i), false);
-							item.appendChild(link);
+							item = $('<li>');
+							link = $('<a>');
+							link.attr('href','#')
+								.html(i)
+								.click(createClickHandler(i));
 							
-							// TODO: Highlight current page in the navigation
-							// if i == current_page add a class....
+							// Highlight the current page
+							if(i == current_page){
+								link.addClass('active');
+							}
+							
+							item.append(link);
 							
 							if(i > 2 && i == start_range){
 								nav.append('<li>...</li>');
@@ -74,14 +77,20 @@
 						}
 					}
 				} else {
-					// Display links for all pages
+					// Display navigation links for all pages
 					for(;i<=total_pages;i++){
-						item = document.createElement('li');
-						link = document.createElement('a')
-						link.setAttribute('href', '#');
-						link.innerHTML = i;
-						$(link).click(createClickHandler(i));
-						item.appendChild(link);
+						item = $('<li>');
+						link = $('<a>');
+						link.attr('href','#')
+							.html(i)
+							.click(createClickHandler(i));
+						
+						// Highlight the current page
+						if(i == current_page){
+							link.addClass('active');
+						}
+						
+						item.append(link);
 						nav.append(item);
 					}
 				}
