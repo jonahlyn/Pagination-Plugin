@@ -80,19 +80,15 @@
 				if(total_pages > opts.pageLimit){
 					// Show truncated page navigation
 					// TODO: Figure out how to use opts.midRange here
-					start_range = current_page - Math.floor(opts.pageLinksShown/2);
-					end_range = current_page + Math.floor(opts.pageLinksShown/2);
+					start_range = current_page - Math.floor(opts.midRange/2);
+					end_range = current_page + Math.floor(opts.midRange/2);
 					
-					if(start_range < 0){
-						start_range = current_page;
+					if(start_range <= 0){
+						start_range = 1;
 					}
 					if(end_range > total_pages){
 						end_range = total_pages;
-					}
-					
-					console.log('start range: ', start_range);
-					console.log('end range: ', end_range);
-					console.log('range value: ', Math.floor(opts.pageLinksShown/2));					
+					}				
 					
 					for(;i<=total_pages;i++){
 						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
@@ -157,7 +153,7 @@
 	$.fn.pagination.defaults = {
 			itemsPerPage: 7,
 			pageLimit: 10,
-			pageLinksShown: 6
+			midRange: 6
 	};
 	
 }(jQuery));
