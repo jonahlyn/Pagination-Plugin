@@ -17,7 +17,7 @@
 				nav, nav2;
 			
 			function displayPage(pageNum){
-				var current_page = pageNum || 1,					
+				var current_page = pageNum || 1,
 					low = (current_page - 1) * opts.itemsPerPage,
 					high = low + opts.itemsPerPage;
 
@@ -40,7 +40,7 @@
 					return function(e) {
 						e.preventDefault();
 						displayPage(i);
-			        }
+					}
 				}
 				
 				function appendLink(params){
@@ -53,10 +53,12 @@
 							.html(params.htmlText)
 							.click(createClickHandler(params.pageNum));
 						item.append(link);
+					} else if (params.htmlText){
+						item.html(params.htmlText);
 					}
 					if (params.clsName) {
 						item.addClass(params.clsName);
-					}
+					}					
 					
 					nav.append(item);
 				}
@@ -65,28 +67,32 @@
 				if(current_page !== 1){
 					appendLink({pageNum: 1, htmlText: 'First', clsName: 'first'});
 				}else{
-					appendLink({clsName: 'first'});
+					appendLink({htmlText: 'First', clsName: 'first'});
 				}
 				
 				// Previous Page Link
 				if(current_page > 1){
 					appendLink({pageNum: previous_page, htmlText: 'Previous', clsName: 'previous'});
 				}else{
-					appendLink({clsName: 'previous'});
+					appendLink({htmlText: 'Previous', clsName: 'previous'});
 				}
 				
 				if(total_pages > opts.pageLimit){
 					// Show truncated page navigation
 					// TODO: Figure out how to use opts.midRange here
-					start_range = current_page - 2;
-					end_range = current_page + 2;
+					start_range = current_page - Math.floor(opts.pageLinksShown/2);
+					end_range = current_page + Math.floor(opts.pageLinksShown/2);
 					
-					if(start_range <= 0){
+					if(start_range < 0){
 						start_range = current_page;
 					}
 					if(end_range > total_pages){
 						end_range = total_pages;
 					}
+					
+					console.log('start range: ', start_range);
+					console.log('end range: ', end_range);
+					console.log('range value: ', Math.floor(opts.pageLinksShown/2));					
 					
 					for(;i<=total_pages;i++){
 						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
@@ -98,10 +104,10 @@
 							appendLink({
 								pageNum: i, 
 								htmlText: i, 
-								clsName: (i == current_page)?'active':null
+								clsName: (i == current_page)?'active':'link'
 								});
 							
-							if(i < total_pages && i == end_range){
+							if(i < total_pages-1 && i == end_range){
 								nav.append('<li>...</li>');
 							}
 						}
@@ -112,7 +118,7 @@
 						appendLink({
 							pageNum: i, 
 							htmlText: i, 
-							clsName: (i == current_page)?'active':null
+							clsName: (i == current_page)?'active':'link'
 							});
 					}
 				}
@@ -121,16 +127,15 @@
 				if(current_page < total_pages){
 					appendLink({pageNum: next_page, htmlText: 'Next', clsName: 'next'});
 				}else {
-					appendLink({clsName: 'next'});
+					appendLink({htmlText: 'Next', clsName: 'next'});
 				}
 				
 				// Last Page Link			
 				if(current_page !== total_pages){
 					appendLink({pageNum: total_pages, htmlText: 'Last', clsName: 'last'});
 				}else {
-					appendLink({clsName: 'last'});
-				}				
-				
+					appendLink({htmlText: 'Last', clsName: 'last'});
+				}
 				
 				return nav;
 			}
@@ -152,7 +157,7 @@
 	$.fn.pagination.defaults = {
 			itemsPerPage: 7,
 			pageLimit: 10,
-			midRange: 5
+			pageLinksShown: 6
 	};
 	
 }(jQuery));
