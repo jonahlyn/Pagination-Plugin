@@ -153,7 +153,7 @@
 	$.fn.pagination.defaults = {
 			itemsPerPage: 7,
 			pageLimit: 10,
-			midRange: 6
+			midRange: 7
 	};
 	
 }(jQuery));
