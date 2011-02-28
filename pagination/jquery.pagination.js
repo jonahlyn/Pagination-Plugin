@@ -79,7 +79,6 @@
 				
 				if(total_pages > opts.pageLimit){
 					// Show truncated page navigation
-					// TODO: Figure out how to use opts.midRange here
 					start_range = current_page - Math.floor(opts.midRange/2);
 					end_range = current_page + Math.floor(opts.midRange/2);
 					
