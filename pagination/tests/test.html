@@ -25,16 +25,28 @@
           same($.fn.pagination.defaults.midRange, 7);
         });
         
-        test("Item Set 1 Items Per Page", function(){
+        test("Use Default Items Per Page", function(){
             $('#items').pagination();   // uses default options
             same($('#items li:visible').length, 7);
         });
         
-        test("Item Set 2 Custom Items Per Page", function(){
+        test("Set Custom Items Per Page", function(){
             $.fn.pagination.defaults.itemsPerPage = 10;
-            $('#items2').pagination();  // uses custom options
-            same($('#items2 li:visible').length, 10);
-        });        
+            $('#items').pagination();  // uses custom options
+            same($('#items li:visible').length, 10);
+        });
+        
+        
+        /* 
+         * Test Navigation Module
+         */        
+        module("Test Navigation");
+        
+        test("Build Navigation", function(){
+            $('#items').pagination();
+            ok($('#items').prev('.pagination').length, 'Top navigation created.');
+            ok($('#items + .pagination').length, 'Bottom navigation created.');
+        });
        
     </script>
   </head>
@@ -98,100 +110,7 @@
             <li>48 List Item</li>
             <li>49 List Item</li>
             <li>50 List Item</li>
-            <li>61 List Item</li>
-            <li>62 List Item</li>
-            <li>63 List Item</li>
-            <li>64 List Item</li>
-            <li>65 List Item</li>
-            <li>66 List Item</li>
-            <li>67 List Item</li>
-            <li>68 List Item</li>
-            <li>69 List Item</li>
-            <li>70 List Item</li>
-            <li>71 List Item</li>
-            <li>72 List Item</li>
-            <li>73 List Item</li>
-            <li>74 List Item</li>
-            <li>75 List Item</li>
-            <li>76 List Item</li>
-            <li>77 List Item</li>
-            <li>78 List Item</li>
-            <li>79 List Item</li>
-            <li>80 List Item</li>
-            <li>81 List Item</li>
-            <li>82 List Item</li>
-            <li>83 List Item</li>
-            <li>84 List Item</li>
-            <li>85 List Item</li>
-            <li>86 List Item</li>
-            <li>87 List Item</li>
-            <li>88 List Item</li>
-            <li>89 List Item</li>
-            <li>90 List Item</li>
-            <li>91 List Item</li>
-            <li>92 List Item</li>
-            <li>93 List Item</li>
-            <li>94 List Item</li>
-            <li>95 List Item</li>
-            <li>96 List Item</li>
-            <li>97 List Item</li>
-            <li>98 List Item</li>
-            <li>99 List Item</li>
         </ul>
-
-
-    <ul id="items2">
-        <li>1 List Item</li>
-        <li>2 List Item</li>
-        <li>3 List Item</li>
-        <li>4 List Item</li>
-        <li>5 List Item</li>
-        <li>6 List Item</li>
-        <li>7 List Item</li>
-        <li>8 List Item</li>
-        <li>9 List Item</li>
-        <li>10 List Item</li>
-        <li>11 List Item</li>
-        <li>12 List Item</li>
-        <li>13 List Item</li>
-        <li>14 List Item</li>
-        <li>15 List Item</li>
-        <li>16 List Item</li>
-        <li>17 List Item</li>
-        <li>18 List Item</li>
-        <li>19 List Item</li>
-        <li>20 List Item</li>
-        <li>21 List Item</li>
-        <li>22 List Item</li>
-        <li>23 List Item</li>
-        <li>24 List Item</li>
-        <li>25 List Item</li>
-        <li>26 List Item</li>
-        <li>27 List Item</li>
-        <li>28 List Item</li>
-        <li>29 List Item</li>
-        <li>30 List Item</li>
-        <li>31 List Item</li>
-        <li>32 List Item</li>
-        <li>33 List Item</li>
-        <li>34 List Item</li>
-        <li>35 List Item</li>
-        <li>36 List Item</li>
-        <li>37 List Item</li>
-        <li>38 List Item</li>
-        <li>39 List Item</li>
-        <li>40 List Item</li>
-        <li>41 List Item</li>
-        <li>42 List Item</li>
-        <li>43 List Item</li>
-        <li>44 List Item</li>
-        <li>45 List Item</li>
-        <li>46 List Item</li>
-        <li>47 List Item</li>
-        <li>48 List Item</li>
-        <li>49 List Item</li>
-        <li>50 List Item</li>
-    </ul>
         
     </div>
   </body>
