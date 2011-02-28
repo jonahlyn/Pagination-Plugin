@@ -3,7 +3,7 @@
  *
  */
 
-
+/*globals $*/
 (function($){
 	
 	$.fn.pagination = function(options){
@@ -16,32 +16,14 @@
 				total_pages = Math.ceil(total_items / opts.itemsPerPage),
 				nav, nav2;
 			
-			function displayPage(pageNum){
-				var current_page = pageNum || 1,
-					low = (current_page - 1) * opts.itemsPerPage,
-					high = low + opts.itemsPerPage;
-
-				items.hide();
-				items.slice(low,high).show();
-				updateNavigation(current_page);
-			}			
-			
-			function buildNavigation(current_page){
+			function buildNavigation(curpage){
 				var nav = $('<ul class="pagination"></ul>'), 
-					current_page = parseInt(current_page) || 1,
+					current_page = parseInt(curpage, 10) || 1,
 					next_page = current_page + 1,
 					previous_page = current_page - 1, 
 					start_range, end_range,
 					item, link,
 					i = 1;
-				
-				function createClickHandler(i){
-					var i = i || 1;
-					return function(e) {
-						e.preventDefault();
-						displayPage(i);
-					}
-				}
 				
 				function appendLink(params){
 					params = params || {};
@@ -90,19 +72,19 @@
 					}				
 					
 					for(;i<=total_pages;i++){
-						if(i==1 || (i >= start_range && i <= end_range) || i == total_pages){
+						if(i===1 || (i >= start_range && i <= end_range) || i === total_pages){
 							
-							if(i > 2 && i == start_range){
+							if(i > 2 && i === start_range){
 								nav.append('<li>...</li>');
 							}
 							
 							appendLink({
 								pageNum: i, 
 								htmlText: i, 
-								clsName: (i == current_page)?'active':'link'
+								clsName: (i === current_page)?'active':'link'
 								});
 							
-							if(i < total_pages-1 && i == end_range){
+							if(i < total_pages-1 && i === end_range){
 								nav.append('<li>...</li>');
 							}
 						}
@@ -113,7 +95,7 @@
 						appendLink({
 							pageNum: i, 
 							htmlText: i, 
-							clsName: (i == current_page)?'active':'link'
+							clsName: (i === current_page)?'active':'link'
 							});
 					}
 				}
@@ -143,7 +125,25 @@
 				nav = buildNavigation(current_page);
 				nav2 = nav.clone(true);
 				page_elem.before(nav).after(nav2);
-			}			
+			}
+			
+			function displayPage(pageNum){
+				var current_page = pageNum || 1,
+					low = (current_page - 1) * opts.itemsPerPage,
+					high = low + opts.itemsPerPage;
+
+				items.hide();
+				items.slice(low,high).show();
+				updateNavigation(current_page);
+			}
+			
+			function createClickHandler(pg){
+				var i = pg || 1;
+				return function(e) {
+					e.preventDefault();
+					displayPage(i);
+				};
+			}
 			
 			displayPage();
 		});
