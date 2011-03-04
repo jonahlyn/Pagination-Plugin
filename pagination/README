@@ -1,19 +1,46 @@
-Pagination
- 
-jquery.pagination.js
-1. Accepts an options object to configure items per page (itemsPerPage) and the class name used on the navigation (navigationClass).
+Pagination Plugin
+==================
 
-{
-itemsPerPage: 7,
-navigationClass: 'pagination'
-}
+A plugin that paginations an HTML ul or ol list element.
 
-pagination.css
-1. Modify the Buttons/Arrows, size, and colors to be used for paginated navigation.
-2. Modify styles for paginated list content.
 
-pagination.html
-1. Sample content of how files should be included, how list should be setup, and how to select where to include paginated navigation.
+Usage
+-----
+$('#items').pagination();
 
-arrows folder
-1. Contains images for arrow buttons.
+
+Options
+-------
+You may change the global defaults by modifying the `$.fn.pagination.defaults` object.
+
+$('#items').pagination({itemsPerPage: 10});
+
+- **itemsPerPage**
+  The number of list items to show per page. Default is 7.
+
+- **pageLimit**
+  The maximum number of pages before the navigation will be truncated. Default is 10.
+
+- **midRange**
+  Used to calculate the range for truncated navigation. Should be odd. Default is 7.
+
+
+
+Files
+-----
+
+- **jquery-1.4.2.min.js**
+  The version of jQuery used to create this plugin.
+
+- **jquery.pagination.js**
+  This plugin.
+
+- **pagination.css**
+  CSS styles that control the display of the paginated list and navigation.
+
+- **pagination.html**
+  Sample of paginated elements.
+  
+- **tests**
+  Holds the plugin unit tests.
+
