@@ -2,7 +2,7 @@
  
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title></title>
+    <title>Test Basic Functionality of Plugin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
     <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>    
@@ -10,42 +10,159 @@
     <script type="text/javascript" src="../jquery.pagination.js"></script>
     <script>
         
-        /* Set Options Module
-         * Test the setting of options
-         */
-        module("Set Options");
+        /* *****************************
+         * Test Default Options Module
+         * *****************************/
+        module("Test Default Options");
         
-        /* Test default options 
-         */
+        /* Test default options */
         test("Default Options", function() {
-          // Specify # of assertions in the test
-          expect(3);
           same($.fn.pagination.defaults.itemsPerPage, 7);
           same($.fn.pagination.defaults.pageLimit, 10);
           same($.fn.pagination.defaults.midRange, 7);
         });
         
+        /* Test default itemsPerPage option */
         test("Use Default Items Per Page", function(){
-            $('#items').pagination();   // uses default options
+            $('#items').pagination();
             same($('#items li:visible').length, 7);
         });
+
+        /* *****************************
+         * Test Custom Options Module
+         * *****************************/
+        module("Test Custom Options");
         
+        /* Test custom itemsPerPage option */
         test("Set Custom Items Per Page", function(){
             $.fn.pagination.defaults.itemsPerPage = 10;
-            $('#items').pagination();  // uses custom options
+            $('#items').pagination();
             same($('#items li:visible').length, 10);
         });
         
-        
-        /* 
+        /* *****************************
          * Test Navigation Module
-         */        
-        module("Test Navigation");
+         * *****************************/
+        module("Test Navigation", {
+            setup: function() {
+                //Set options for each test
+                $.fn.pagination.defaults.itemsPerPage = 10;
+                $.fn.pagination.defaults.pageLimit = 10;
+                $.fn.pagination.defaults.midRange = 7;
+            },
+            teardown: function() {
+                
+            }
+        });
         
+        /* Test for creation of top and bottom navigation */
         test("Build Navigation", function(){
+            var total_pages = Math.ceil($('#items').children('li').length / $.fn.pagination.defaults.itemsPerPage);
+            ok(total_pages < $.fn.pagination.defaults.pageLimit, "Total Pages is within page limit. This is appropriate for the tests in this module.");
+            
             $('#items').pagination();
             ok($('#items').prev('.pagination').length, 'Top navigation created.');
             ok($('#items + .pagination').length, 'Bottom navigation created.');
+            
+            same($('#items').prev('.pagination').find('li.link').length, total_pages);
+        });
+        
+        /* Test clicks on numbered navigation links */
+        test("Test Numbered Navigation Links", function(){
+            expect(18);
+            $('#items').pagination();
+            
+            //Displaying first page
+            same($('#items').children('li:visible:first').index(), 0);
+            same($('#items').children('li:visible:last').index(), 9);
+            same($('#items').prev('.pagination').find('li.first a').length, 0);
+            same($('#items').prev('.pagination').find('li.previous a').length, 0); 
+            same($('#items').prev('.pagination').find('li.next a').length, 1);
+            same($('#items').prev('.pagination').find('li.last a').length, 1);  
+            
+            //Display second page
+            $('#items').prev('.pagination').find('li.link a:eq(1)').click();
+            same($('#items').children('li:visible:first').index(), 10);
+            same($('#items').children('li:visible:last').index(), 19);
+            
+            //Display third page
+            $('#items').prev('.pagination').find('li.link a:eq(2)').click();
+            same($('#items').children('li:visible:first').index(), 20);
+            same($('#items').children('li:visible:last').index(), 29);
+            
+            //Display fourth page
+            $('#items').prev('.pagination').find('li.link a:eq(3)').click();
+            same($('#items').children('li:visible:first').index(), 30);
+            same($('#items').children('li:visible:last').index(), 39);
+            
+            //Display fifth page
+            $('#items').prev('.pagination').find('li.link a:eq(4)').click();
+            same($('#items').children('li:visible:first').index(), 40);
+            same($('#items').children('li:visible:last').index(), 49);
+            same($('#items').prev('.pagination').find('li.first a').length, 1);
+            same($('#items').prev('.pagination').find('li.previous a').length, 1);
+            same($('#items').prev('.pagination').find('li.next a').length, 0);
+            same($('#items').prev('.pagination').find('li.last a').length, 0);
+        });
+        
+        /* Test clicks on first/previous/next/last links */
+        test("Test First/Previous/Next/Last Links", function(){
+            expect(22);
+            $('#items').pagination();
+            
+            //Displaying first page
+            same($('#items').children('li:visible:first').index(), 0);
+            same($('#items').children('li:visible:last').index(), 9);
+            
+            //Display second page
+            $('#items').prev('.pagination').find('li.next a').click();
+            same($('#items').children('li:visible:first').index(), 10);
+            same($('#items').children('li:visible:last').index(), 19);
+            
+            //Display third page
+            $('#items').prev('.pagination').find('li.next a').click();
+            same($('#items').children('li:visible:first').index(), 20);
+            same($('#items').children('li:visible:last').index(), 29);
+            
+            //Display fourth page
+            $('#items').prev('.pagination').find('li.next a').click();
+            same($('#items').children('li:visible:first').index(), 30);
+            same($('#items').children('li:visible:last').index(), 39);
+            
+            //Display fifth page
+            $('#items').prev('.pagination').find('li.next a').click();
+            same($('#items').children('li:visible:first').index(), 40);
+            same($('#items').children('li:visible:last').index(), 49);
+            
+            //Display fourth page
+            $('#items').prev('.pagination').find('li.previous a').click();
+            same($('#items').children('li:visible:first').index(), 30);
+            same($('#items').children('li:visible:last').index(), 39);
+
+            //Display third page
+            $('#items').prev('.pagination').find('li.previous a').click();
+            same($('#items').children('li:visible:first').index(), 20);
+            same($('#items').children('li:visible:last').index(), 29);
+            
+            //Display second page
+            $('#items').prev('.pagination').find('li.previous a').click();
+            same($('#items').children('li:visible:first').index(), 10);
+            same($('#items').children('li:visible:last').index(), 19);
+            
+            //Display first page
+            $('#items').prev('.pagination').find('li.previous a').click();
+            same($('#items').children('li:visible:first').index(), 0);
+            same($('#items').children('li:visible:last').index(), 9);
+            
+            //Display last page
+            $('#items').prev('.pagination').find('li.last a').click();
+            same($('#items').children('li:visible:first').index(), 40);
+            same($('#items').children('li:visible:last').index(), 49);
+            
+            //Display first page
+            $('#items').prev('.pagination').find('li.first a').click();
+            same($('#items').children('li:visible:first').index(), 0);
+            same($('#items').children('li:visible:last').index(), 9);
         });
        
     </script>
