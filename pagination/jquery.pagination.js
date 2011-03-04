@@ -81,7 +81,7 @@
 							appendLink({
 								pageNum: i, 
 								htmlText: i, 
-								clsName: (i === current_page)?'active':'link'
+								clsName: (i === current_page)?'active link':'link'
 								});
 							
 							if(i < total_pages-1 && i === end_range){
@@ -95,7 +95,7 @@
 						appendLink({
 							pageNum: i, 
 							htmlText: i, 
-							clsName: (i === current_page)?'active':'link'
+							clsName: (i === current_page)?'active link':'link'
 							});
 					}
 				}
