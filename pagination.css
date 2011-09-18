@@ -1,0 +1,37 @@
+.pagination {
+    color: #729972;
+    font-family: sans-serif;
+    list-style: none;
+    margin: 3px 0 5px 0;
+    padding: 10px;
+}
+
+.pagination li {
+    display: inline;
+    margin: 0 5px 0 0; 
+    padding: 4px;
+}
+
+.pagination li.first,
+.pagination li.previous,
+.pagination li.next,
+.pagination li.last,
+.pagination li.link {
+    border: 1px solid #5b995b;
+}
+
+.pagination li a {
+    color: #006600;
+    text-decoration: none;
+}
+
+.pagination li.active {
+    background: #009900;
+    border: 1px solid #007f00;
+    font-weight: bold;
+}
+
+.pagination li.active a{
+    color: #FFFFFF;
+}
+
